@@ -7,18 +7,18 @@ const u = (id: string) => `https://images.unsplash.com/${id}?auto=format&fit=cro
 const full = (id: string) => `https://images.unsplash.com/${id}?auto=format&fit=crop&w=1800&q=80`;
 
 const photos = [
-  { id: "photo-1487754180451-c456f719a1fc", title: "Oil Change", alt: "Mechanic refilling motor oil in a car engine bay" },
-  { id: "photo-1625047509248-ec889cbff17f", title: "Engine Inspection", alt: "Mechanic in a grey uniform inspecting a car engine" },
-  { id: "photo-1727893119356-1702fe921cf9", title: "Our Workshop", alt: "Mechanics working on cars in a bright repair workshop" },
-  { id: "photo-1645445522156-9ac06bc7a767", title: "Tire Service", alt: "Man working on a tire in a garage" },
-  { id: "photo-1632733711679-529326f6db12", title: "Under the Hood", alt: "Man working on a car engine" },
-  { id: "photo-1764015805414-df7de89d405b", title: "Wheel Removal", alt: "Mechanic using an impact wrench on a car wheel" },
-  { id: "photo-1727893304219-063d142ce6f3", title: "Service Bay", alt: "A car being worked on in a repair shop" },
-  { id: "photo-1517026575980-3e1e2dedeab4", title: "Diagnostics", alt: "Analog tachometer gauge on a car dashboard" },
-  { id: "photo-1615906655593-ad0386982a0f", title: "Engine Repair", alt: "Mechanic working on a car engine" },
-  { id: "photo-1760836395760-9831facb4754", title: "Tires and Wheels", alt: "Stack of car tires with an alloy wheel on top" },
-  { id: "photo-1619642751034-765dfdf7c58e", title: "Hands-On Work", alt: "Greasy hands using a metal wrench on a car engine" },
-  { id: "photo-1702146713922-613313be011d", title: "Wheel and Wrench", alt: "A tire with a wrench next to it" },
+  { id: "photo-1487754180451-c456f719a1fc", alt: "Mechanic refilling motor oil in a car engine bay" },
+  { id: "photo-1625047509248-ec889cbff17f", alt: "Mechanic in a grey uniform inspecting a car engine" },
+  { id: "photo-1727893119356-1702fe921cf9", alt: "Mechanics working on cars in a bright repair workshop" },
+  { id: "photo-1645445522156-9ac06bc7a767", alt: "Man working on a tire in a garage" },
+  { id: "photo-1632733711679-529326f6db12", alt: "Man working on a car engine" },
+  { id: "photo-1764015805414-df7de89d405b", alt: "Mechanic using an impact wrench on a car wheel" },
+  { id: "photo-1727893304219-063d142ce6f3", alt: "A car being worked on in a repair shop" },
+  { id: "photo-1517026575980-3e1e2dedeab4", alt: "Analog tachometer gauge on a car dashboard" },
+  { id: "photo-1615906655593-ad0386982a0f", alt: "Mechanic working on a car engine" },
+  { id: "photo-1760836395760-9831facb4754", alt: "Stack of car tires with an alloy wheel on top" },
+  { id: "photo-1619642751034-765dfdf7c58e", alt: "Greasy hands using a metal wrench on a car engine" },
+  { id: "photo-1702146713922-613313be011d", alt: "A tire with a wrench next to it" },
 ];
 
 export default function Gallery() {
@@ -74,7 +74,7 @@ export default function Gallery() {
                 onClick={() => setActive(p.i)}
                 className="group relative block w-full overflow-hidden rounded-lg text-left cursor-pointer"
                 style={{ aspectRatio: "4 / 3", backgroundColor: "#2A2C30", boxShadow: "0 4px 14px rgba(0,0,0,0.18)" }}
-                aria-label={`Open photo: ${p.title}`}
+                aria-label={`Open photo: ${p.alt}`}
               >
                 <img
                   src={u(p.id)}
@@ -83,14 +83,6 @@ export default function Gallery() {
                   onError={() => setFailed((f) => ({ ...f, [p.id]: true }))}
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />
-                <div
-                  className="absolute inset-x-0 bottom-0 px-4 pt-10 pb-3 transition-opacity duration-300 opacity-100 md:opacity-0 md:group-hover:opacity-100 md:group-focus-visible:opacity-100"
-                  style={{ background: "linear-gradient(to top, rgba(30,31,34,0.92), transparent)" }}
-                >
-                  <span className="font-bold uppercase" style={{ fontFamily: "'Oswald', sans-serif", color: "#FFC800", letterSpacing: "0.08em", fontSize: "15px" }}>
-                    {p.title}
-                  </span>
-                </div>
               </button>
             ))}
           </div>
@@ -119,7 +111,7 @@ export default function Gallery() {
           style={{ backgroundColor: "rgba(15,16,18,0.94)" }}
           role="dialog"
           aria-modal="true"
-          aria-label={photos[active].title}
+          aria-label={photos[active].alt}
           onClick={() => setActive(null)}
         >
           <button
@@ -140,9 +132,6 @@ export default function Gallery() {
           </button>
           <figure className="max-w-5xl w-full" onClick={(e) => e.stopPropagation()}>
             <img src={full(photos[active].id)} alt={photos[active].alt} className="w-full max-h-[78vh] object-contain rounded" />
-            <figcaption className="mt-3 text-center font-bold uppercase" style={{ fontFamily: "'Oswald', sans-serif", color: "#FFC800", letterSpacing: "0.1em" }}>
-              {photos[active].title}
-            </figcaption>
           </figure>
           <button
             type="button"
