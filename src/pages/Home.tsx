@@ -1,5 +1,5 @@
 import { Link } from "react-router";
-import { CheckeredDivider } from "../components/shared";
+import { CheckeredDivider, useGoToSection } from "../components/shared";
 import oilChangePhoto from "../imports/oil_change.jpg";
 
 function IconShield() {
@@ -108,7 +108,7 @@ function IconCar() {
 
 const services = [
   { id: "oil", icon: <IconOil />, name: "Oil & Filter Change", desc: "Full synthetic or conventional oil swap with filter replacement to keep your engine running clean.", price: "PHP 800", badge: false },
-  { id: "brake", icon: <IconBrake />, name: "Brake Service", desc: "Pad replacement, rotor inspection, and hydraulic check — stopping power you can trust.", price: "PHP 2,500", badge: true },
+  { id: "brake", icon: <IconBrake />, name: "Brake Service", desc: "Pad replacement, rotor inspection, and hydraulic check, stopping power you can trust.", price: "PHP 2,500", badge: true },
   { id: "tires", icon: <IconTire />, name: "Tires & Alignment", desc: "New tires fitted and four-wheel alignment dialed in for even wear and straight tracking.", price: "PHP 1,200", badge: false },
   { id: "diag", icon: <IconDiag />, name: "Diagnostics", desc: "OBD-II scan plus visual inspection to pinpoint the root cause before any work begins.", price: "PHP 600", badge: false },
   { id: "trans", icon: <IconGear />, name: "Transmission", desc: "Fluid flush, filter change, and full transmission health assessment for smooth shifting.", price: "PHP 3,000", badge: false },
@@ -123,8 +123,10 @@ const steps = [
 ];
 
 function Hero() {
+  const goTo = useGoToSection();
   return (
     <section
+      id="home"
       className="relative overflow-hidden"
       style={{ backgroundColor: "#1E1F22", minHeight: "88vh", display: "flex", alignItems: "center" }}
     >
@@ -177,7 +179,8 @@ function Hero() {
               Book a Repair
             </Link>
             <a
-              href="#services"
+              href="#/services"
+              onClick={(e) => { e.preventDefault(); goTo("services"); }}
               className="inline-flex items-center justify-center px-8 py-4 text-base font-bold uppercase tracking-wider rounded border-2 transition-colors duration-150"
               style={{ borderColor: "#F2F1ED", color: "#F2F1ED", fontFamily: "'Oswald', sans-serif", letterSpacing: "0.1em", backgroundColor: "transparent" }}
               onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = "#F2F1ED"; e.currentTarget.style.color = "#1E1F22"; }}
@@ -224,7 +227,7 @@ function TrustBar() {
 
 function Services() {
   return (
-    <section id="services" style={{ backgroundColor: "#F2F1ED" }}>
+    <section id="services" style={{ backgroundColor: "#F2F1ED", scrollMarginTop: "64px" }}>
       <div className="max-w-7xl mx-auto px-5 md:px-8 py-20 md:py-28">
         <div className="mb-12 md:mb-16">
           <span className="inline-block text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: "#FFC800", fontFamily: "'Oswald', sans-serif", letterSpacing: "0.2em" }}>
@@ -272,7 +275,7 @@ function Services() {
 
 function HowItWorks() {
   return (
-    <section style={{ backgroundColor: "#1E1F22" }}>
+    <section id="about" style={{ backgroundColor: "#1E1F22", scrollMarginTop: "64px" }}>
       <div className="max-w-7xl mx-auto px-5 md:px-8 py-20 md:py-28">
         <div className="mb-12 md:mb-16 text-center">
           <span className="inline-block text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: "#FFC800", fontFamily: "'Oswald', sans-serif", letterSpacing: "0.2em" }}>
@@ -313,7 +316,7 @@ function HowItWorks() {
 
 function Testimonial() {
   return (
-    <section style={{ backgroundColor: "#F2F1ED" }}>
+    <section id="gallery" style={{ backgroundColor: "#F2F1ED", scrollMarginTop: "64px" }}>
       <div className="max-w-4xl mx-auto px-5 md:px-8 py-20 md:py-28 text-center">
         <div className="font-bold mb-6 leading-none select-none" style={{ fontFamily: "'Oswald', sans-serif", fontSize: "80px", color: "#FFC800", lineHeight: 0.7, opacity: 0.6 }} aria-hidden="true">"</div>
         <blockquote>

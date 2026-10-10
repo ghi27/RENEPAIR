@@ -1,5 +1,29 @@
 import { useState } from "react";
-import { Link, useLocation } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
+
+// ── Smooth scroll to a section on the Home page ─────────────────────────────
+// Works from any page: on the Home page it scrolls, on other pages it goes Home first.
+export function useGoToSection() {
+  const navigate = useNavigate();
+  const location = useLocation();
+  return (id: string) => {
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const behavior: ScrollBehavior = reduce ? "auto" : "smooth";
+    const scroll = () => {
+      if (id === "home") {
+        window.scrollTo({ top: 0, behavior });
+        return;
+      }
+      document.getElementById(id)?.scrollIntoView({ behavior, block: "start" });
+    };
+    if (location.pathname === "/") {
+      scroll();
+    } else {
+      navigate("/");
+      setTimeout(scroll, 150);
+    }
+  };
+}
 
 // ── Checkered-flag divider ──────────────────────────────────────────────────
 export function CheckeredDivider() {
@@ -104,12 +128,13 @@ export function Logo({ compact = false }: { compact?: boolean }) {
 export function Header() {
   const [open, setOpen] = useState(false);
   const location = useLocation();
+  const goTo = useGoToSection();
   const navLinks = [
-    { label: "Home", to: "/" },
-    { label: "About Us", to: "#" },
-    { label: "Services", to: "#" },
-    { label: "Gallery", to: "#" },
-    { label: "Contact", to: "#" },
+    { label: "Home", id: "home" },
+    { label: "About Us", id: "about" },
+    { label: "Services", id: "services" },
+    { label: "Gallery", id: "gallery" },
+    { label: "Contact", id: "contact" },
   ];
 
   return (
@@ -119,14 +144,15 @@ export function Header() {
 
         <nav className="hidden md:flex items-center gap-7">
           {navLinks.map((l) => (
-            <Link
+            <a
               key={l.label}
-              to={l.to}
+              href={`#/${l.id}`}
+              onClick={(e) => { e.preventDefault(); goTo(l.id); }}
               className="text-[#9CA3AF] uppercase tracking-wider transition-colors duration-150 hover:text-[#FFC800]"
               style={{ fontFamily: "'Oswald', sans-serif", letterSpacing: "0.08em", fontSize: "13px", fontWeight: 600 }}
             >
               {l.label}
-            </Link>
+            </a>
           ))}
         </nav>
 
@@ -149,15 +175,15 @@ export function Header() {
         <div className="md:hidden" style={{ backgroundColor: "#2A2C30" }}>
           <nav className="flex flex-col px-5 py-4 gap-4">
             {navLinks.map((l) => (
-              <Link
+              <a
                 key={l.label}
-                to={l.to}
+                href={`#/${l.id}`}
                 className="text-white font-semibold uppercase tracking-wider text-base border-b pb-3"
                 style={{ fontFamily: "'Oswald', sans-serif", borderColor: "#1E1F22" }}
-                onClick={() => setOpen(false)}
+                onClick={(e) => { e.preventDefault(); setOpen(false); goTo(l.id); }}
               >
                 {l.label}
-              </Link>
+              </a>
             ))}
             <Link
               to="/book"
@@ -177,7 +203,7 @@ export function Header() {
 // ── Footer ───────────────────────────────────────────────────────────────────
 export function Footer() {
   return (
-    <footer style={{ backgroundColor: "#1E1F22", borderTop: "1px solid #2A2C30" }}>
+    <footer id="contact" style={{ backgroundColor: "#1E1F22", borderTop: "1px solid #2A2C30", scrollMarginTop: "64px" }}>
       <div className="max-w-7xl mx-auto px-5 md:px-8 py-14 md:py-16">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-12">
           <div>
