@@ -1,4 +1,4 @@
-import { createBrowserRouter, Outlet } from "react-router";
+import { createHashRouter, Outlet } from "react-router";
 import { Header, Footer } from "./components/shared";
 import Home from "./pages/Home";
 import BookARepair from "./pages/BookARepair";
@@ -23,7 +23,7 @@ function NotFound() {
   );
 }
 
-export const router = createBrowserRouter([
+export const router = createHashRouter([
   {
     path: "/",
     Component: Root,
