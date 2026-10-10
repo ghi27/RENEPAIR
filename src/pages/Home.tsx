@@ -316,7 +316,7 @@ function HowItWorks() {
 
 function Testimonial() {
   return (
-    <section id="gallery" style={{ backgroundColor: "#F2F1ED", scrollMarginTop: "64px" }}>
+    <section style={{ backgroundColor: "#F2F1ED" }}>
       <div className="max-w-4xl mx-auto px-5 md:px-8 py-20 md:py-28 text-center">
         <div className="font-bold mb-6 leading-none select-none" style={{ fontFamily: "'Oswald', sans-serif", fontSize: "80px", color: "#FFC800", lineHeight: 0.7, opacity: 0.6 }} aria-hidden="true">"</div>
         <blockquote>

@@ -129,11 +129,11 @@ export function Header() {
   const [open, setOpen] = useState(false);
   const location = useLocation();
   const goTo = useGoToSection();
-  const navLinks = [
+  const navLinks: { label: string; id?: string; to?: string }[] = [
     { label: "Home", id: "home" },
     { label: "About Us", id: "about" },
     { label: "Services", id: "services" },
-    { label: "Gallery", id: "gallery" },
+    { label: "Gallery", to: "/gallery" },
     { label: "Contact", id: "contact" },
   ];
 
@@ -146,8 +146,8 @@ export function Header() {
           {navLinks.map((l) => (
             <a
               key={l.label}
-              href={`#/${l.id}`}
-              onClick={(e) => { e.preventDefault(); goTo(l.id); }}
+              href={`#${l.to ?? "/" + l.id}`}
+              onClick={(e) => { if (l.to) return; e.preventDefault(); goTo(l.id!); }}
               className="text-[#9CA3AF] uppercase tracking-wider transition-colors duration-150 hover:text-[#FFC800]"
               style={{ fontFamily: "'Oswald', sans-serif", letterSpacing: "0.08em", fontSize: "13px", fontWeight: 600 }}
             >
@@ -177,10 +177,10 @@ export function Header() {
             {navLinks.map((l) => (
               <a
                 key={l.label}
-                href={`#/${l.id}`}
+                href={`#${l.to ?? "/" + l.id}`}
                 className="text-white font-semibold uppercase tracking-wider text-base border-b pb-3"
                 style={{ fontFamily: "'Oswald', sans-serif", borderColor: "#1E1F22" }}
-                onClick={(e) => { e.preventDefault(); setOpen(false); goTo(l.id); }}
+                onClick={(e) => { setOpen(false); if (l.to) return; e.preventDefault(); goTo(l.id!); }}
               >
                 {l.label}
               </a>
