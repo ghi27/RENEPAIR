@@ -1,0 +1,10 @@
+{
+  "description": "Connect with Rene Pair, a trusted local auto repair shop, to book services online, explore offerings, and access transparent pricing with ease.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}
